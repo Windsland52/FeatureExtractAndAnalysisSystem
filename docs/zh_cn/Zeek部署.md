@@ -253,6 +253,10 @@ MailTo = winds_land@foxmail.com
 # script is not available.
 MailConnectionSummary = 1
 
+# Interval in seconds for sending mail connection summary reports.  A value
+# of 0 means only send connection summaries each log rotation interval.
+MailConnectionSummaryInterval = 14400
+
 # Lower threshold (in percentage of disk space) for space available on the
 # disk that holds SpoolDir. If less space is available, "zeekctl cron" starts
 # sending out warning emails.  A value of 0 disables this feature.
