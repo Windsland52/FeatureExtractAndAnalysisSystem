@@ -79,6 +79,10 @@ zkg install zeek/seisollc/zeek-kafka
 修改 `share/zeek/site/local.zeek` 文件，参考 [SeisoLLC/zeek-kafka](https://github.com/SeisoLLC/zeek-kafka)，以下是我的修改：
 
 ```zeek
+# Installation-wide salt value that is used in some digest hashes, e.g., for
+# the creation of file IDs. Please change this to a hard to guess value.
+redef digest_salt = "Please change this";
+
 @load packages/zeek-kafka
 redef Kafka::topic_name = "";
 redef Kafka::send_all_active_logs = T;
