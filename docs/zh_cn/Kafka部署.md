@@ -4,8 +4,10 @@
   - [Apache Kafka](#apache-kafka)
   - [本地编译 librdkafka](#本地编译-librdkafka)
   - [Zeek Kafka 插件](#zeek-kafka-插件)
-    - [安装](#安装)
+    - [安装插件1](#安装插件1)
     - [配置](#配置)
+  - [confluentinc-kafka-connect-elasticsearch](#confluentinc-kafka-connect-elasticsearch)
+    - [安装插件2](#安装插件2)
 
 前置完成[Zeek部署](./Zeek部署.md)
 
@@ -73,7 +75,7 @@ ldconfig
 
 ## Zeek Kafka 插件
 
-### 安装
+### 安装插件1
 
 ```bash
 zkg refresh
@@ -99,3 +101,44 @@ redef Kafka::kafka_conf = table(
 ```
 
 保存后可以 `zeekctl deploy` 重新加载 zeek，加载插件日志（由 misc/loaded-scripts 插件生成）可在 `logs/current/loaded_scripts.log` 查看。
+
+## confluentinc-kafka-connect-elasticsearch
+
+### 安装插件2
+
+```bash
+mkdir kafka_connect_plugins_temp
+cd kafka_connect_plugins_temp
+
+# 下载 Connector (将 URL 和版本号替换为实际版本)
+wget https://hub-downloads.confluent.io/api/plugins/confluentinc/kafka-connect-elasticsearch/versions/15.0.0/confluentinc-kafka-connect-elasticsearch-15.0.0.zip
+
+# 解压
+unzip confluentinc-kafka-connect-elasticsearch-15.0.0.zip
+
+mkdir -p /home/kafka_setup/kafka/plugins
+mv /home/kafka_connect_plugins_temp/confluentinc-kafka-connect-elasticsearch-15.0.0 /home/kafka_setup/kafka/plugins/
+rm -rf /home/kafka_connect_plugins_temp
+```
+
+```bash
+nano /home/kafka_setup/kafka/config/connect-standalone.properties
+```
+
+```plaintext
+# Kafka broker(s)
+bootstrap.servers=localhost:9092
+
+# Key 和 Value 转换器
+key.converter=org.apache.kafka.connect.json.JsonConverter
+value.converter=org.apache.kafka.connect.json.JsonConverter
+key.converter.schemas.enable=false
+value.converter.schemas.enable=false
+
+# 偏移量存储文件
+offset.storage.file.filename=/tmp/connect.offsets # 或者您选择的其他持久路径，如 /home/kafka_setup/kafka/connect.offsets
+                                                # 确保 Kafka Connect 进程有写权限
+
+# 插件路径 (非常重要!)
+plugin.path=/home/kafka_setup/kafka/plugins
+```
