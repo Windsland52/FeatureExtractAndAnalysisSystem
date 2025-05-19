@@ -43,7 +43,7 @@ apt install postfix mailutils
 
 创建发信域名时，选择先创建子域名 mail.windsland.top，然后到域名控制台添加几条域名解析配置。
 
-创建发信地址时，填入 alerts@mail.windsland.top，类型选择触发邮件。
+创建发信地址时，填入 `alerts@mail.windsland.top` ，类型选择触发邮件。
 
 配置完上面的前置工作，再回到 postfix 的配置。
 
@@ -148,26 +148,26 @@ sudo tail -f /var/log/mail.log
 
 1. [部署Zeek](https://docs.zeek.org/en/lts/install.html)（暂不考虑docker）
 
-```bash
-echo 'deb http://download.opensuse.org/repositories/security:/zeek/xUbuntu_24.04/ /' | sudo tee /etc/apt/sources.list.d/security:zeek.list
-curl -fsSL https://download.opensuse.org/repositories/security:zeek/xUbuntu_24.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/security_zeek.gpg > /dev/null
-sudo apt update
-sudo apt install zeek
-```
+   ```bash
+   echo 'deb http://download.opensuse.org/repositories/security:/zeek/xUbuntu_24.04/ /' | sudo tee /etc/apt/sources.list.d/security:zeek.list
+   curl -fsSL https://download.opensuse.org/repositories/security:zeek/xUbuntu_24.04/Release.key | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/security_zeek.gpg > /dev/null
+   sudo apt update
+   sudo apt install zeek
+   ```
 
 2. 将zeek添加到环境变量
 
-```bash
-echo 'export PATH=$PATH:/opt/zeek/bin' >> ~/.bashrc
-source ~/.bashrc
-```
+   ```bash
+   echo 'export PATH=$PATH:/opt/zeek/bin' >> ~/.bashrc
+   source ~/.bashrc
+   ```
 
 3. 检测安装完毕
 
-```bash
-zeek --version
-which zeek
-```
+   ```bash
+   zeek --version
+   which zeek
+   ```
 
 ### 配置
 
