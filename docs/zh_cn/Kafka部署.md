@@ -1,5 +1,12 @@
 # Kafka 部署
 
+- [Kafka 部署](#kafka-部署)
+  - [Apache Kafka](#apache-kafka)
+  - [本地编译 librdkafka](#本地编译-librdkafka)
+  - [Zeek Kafka 插件](#zeek-kafka-插件)
+    - [安装](#安装)
+    - [配置](#配置)
+
 前置完成[Zeek部署](./Zeek部署.md)
 
 ## Apache Kafka
